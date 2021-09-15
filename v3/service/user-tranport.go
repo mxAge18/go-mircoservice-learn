@@ -11,7 +11,19 @@ import (
 
 var JsonContentType string = "application/json"
 
-func DecodeUserRequest(c context.Context, r *http.Request) (decodeRes interface{}, err error) {
+type UserTransporter interface {
+	DecodeRequest(c context.Context, r *http.Request) (decodeRes interface{}, err error)
+	EncodeResponse(ctx context.Context, w http.ResponseWriter, request interface{}) (err error)
+}
+
+type userTransport struct {
+}
+
+func NewUserTransporter() UserTransporter {
+	return &userTransport{}
+}
+
+func (u *userTransport) DecodeRequest(c context.Context, r *http.Request) (decodeRes interface{}, err error) {
 	vars := routerMux.Vars(r)
 	userId, ok := vars["userId"]
 	if !ok {
@@ -25,7 +37,7 @@ func DecodeUserRequest(c context.Context, r *http.Request) (decodeRes interface{
 	return
 }
 
-func EncodeUserResponse(ctx context.Context, w http.ResponseWriter, request interface{}) (err error) {
+func (u *userTransport) EncodeResponse(ctx context.Context, w http.ResponseWriter, request interface{}) (err error) {
 	w.Header().Set("Content-Type", JsonContentType)
 	return json.NewEncoder(w).Encode(request)
 }

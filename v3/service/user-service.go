@@ -5,10 +5,21 @@ type IUserServicer interface {
 	GetName(userId int) string
 	UpdateUser(userId int) string
 	DeleteUser(userId int) string
+	GetServiceId() string
+	GetServiceName() string
+}
+
+func NewUserService(Id, Name string) IUserServicer {
+	return &UserService{
+		serviceName: Name,
+		serviceID:   Id,
+	}
 }
 
 // UserService 定义一个结构体
 type UserService struct {
+	serviceName string
+	serviceID   string
 }
 
 // GetName 实现interface
@@ -42,4 +53,12 @@ func (s *UserService) DeleteUser(userId int) (result string) {
 		result = "no name can't delete"
 	}
 	return
+}
+
+func (s *UserService) GetServiceId() string {
+	return s.serviceID
+}
+
+func (s *UserService) GetServiceName() string {
+	return s.serviceName
 }
