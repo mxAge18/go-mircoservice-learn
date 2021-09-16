@@ -43,6 +43,7 @@ func (c *consulH) Register(serviceID string, serviceName string, checkHTTP strin
 		Name:    serviceName,
 		Address: AgentAddress,
 		Port:    AgentPort,
+		Tags:    []string{"primary", "v1.0.0"},
 		Check: &consulApi.AgentServiceCheck{
 			Interval: "5s",
 			HTTP:     checkHTTP,

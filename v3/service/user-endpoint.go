@@ -24,7 +24,7 @@ type UserEndPointer interface {
 func NewUserEndPointer(service IUserServicer) UserEndPointer {
 	u := userEndPointer{}
 	u.service = service
-	u.GetUserEndpoint()
+	u.GenUserEndpoint()
 	return &u
 }
 

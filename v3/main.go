@@ -15,7 +15,7 @@ import (
 
 var (
 	GetUserIdPath string             = `/user/{userId:\d+}`
-	addr          string             = "192.165.7.133:5050"
+	addr          string             = ":5050"
 	consulHelper  utils.ConsulHelper = utils.NewConsulHelper()
 
 	userService   service.IUserServicer   = service.NewUserService("user-service", "user-service")
@@ -31,13 +31,10 @@ func main() {
 		router.Methods("GET", "POST", "DELETE").Path(GetUserIdPath).Handler(serverHandler)
 		router.Methods("GET").Path("/health").HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 			writer.Header().Set("Content-Type", service.JsonContentType)
-			_, err := writer.Write([]byte(`{"status" : "ok"}`))
-			if err != nil {
-				log.Fatalf("return heath check fail, err, %s", err)
-			}
+			writer.Write([]byte(`{"status" : "ok"}`))
+
 		})
 	}
-
 	errChan := make(chan error)
 	go func() {
 		consulHelper.Register(userService.GetServiceId(), userService.GetServiceName(), "http://192.165.7.133:5050/health")
