@@ -25,7 +25,7 @@ func main() {
 	}
 	{
 		tags := []string{"primary"}
-		instancer := consul.NewInstancer(consulHelper.GetClient(), goKitLog, "user-service", tags, true)
+		instancer := consul.NewInstancer(consulHelper.GetClient(), goKitLog, "user-services", tags, true)
 		factory := func(instance string) (endpoint.Endpoint, io.Closer, error) {
 			target, _ := url.Parse("http://" + instance)
 			c := httpTransport.NewClient("DELETE", target, userTransporter.EncodeRequestFunc, userTransporter.DecodeResponseFunc).Endpoint()

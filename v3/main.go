@@ -18,7 +18,7 @@ var (
 	addr          string             = ":5050"
 	consulHelper  utils.ConsulHelper = utils.NewConsulHelper()
 
-	userService   service.IUserServicer   = service.NewUserService("user-service", "user-service")
+	userService   service.IUserServicer   = service.NewUserService("user-services", "user-services")
 	userEndpoint  service.UserEndPointer  = service.NewUserEndPointer(userService)
 	userTransport service.UserTransporter = service.NewUserTransporter()
 )
