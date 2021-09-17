@@ -41,7 +41,7 @@ func gracefulStartService(port int, serviceName string) {
 	httpServeIp := ":" + strconv.Itoa(port)
 	healthIp := "http://" + ip + ":" + strconv.Itoa(port) + "/health"
 	consulHelper := utils.NewConsulHelper()
-	userService := user.NewUserService(serviceId, serviceName)
+	userService := user.NewUserService(serviceId, serviceName, port)
 	userEndpoint := user.NewEndPointer(userService)
 	userTransport := user.NewUserTransporter()
 
