@@ -1,4 +1,4 @@
-package services
+package user
 
 import (
 	"context"
@@ -10,29 +10,29 @@ import (
 
 var JsonContentType string = "application/json"
 
-type UserTransporter interface {
+type Transporter interface {
 	EncodeRequestFunc(ctx context.Context, r *http.Request, i interface{}) error
 	DecodeResponseFunc(ctx context.Context, res *http.Response) (response interface{}, err error)
 }
 
-type userTransport struct {
+type transport struct {
 }
 
-func NewUserTransporter() UserTransporter {
-	return &userTransport{}
+func NewUserTransporter() Transporter {
+	return &transport{}
 }
 
-func (u *userTransport) EncodeRequestFunc(ctx context.Context, r *http.Request, i interface{}) error {
-	userRequest := i.(UserRequest)
+func (u *transport) EncodeRequestFunc(ctx context.Context, r *http.Request, i interface{}) error {
+	userRequest := i.(Request)
 	r.URL.Path += "/user/" + strconv.Itoa(userRequest.UserId)
 	return nil
 }
 
-func (u *userTransport) DecodeResponseFunc(ctx context.Context, res *http.Response) (response interface{}, err error) {
+func (u *transport) DecodeResponseFunc(ctx context.Context, res *http.Response) (response interface{}, err error) {
 	if res.StatusCode >= http.StatusBadRequest {
 		return nil, errors.New("error status code")
 	}
-	var userResponse UserResponse
+	var userResponse Response
 	err = json.NewDecoder(res.Body).Decode(&userResponse)
 	if err != nil {
 		return nil, err

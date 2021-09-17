@@ -14,4 +14,5 @@ require (
 	github.com/hashicorp/go-uuid v1.0.2 // indirect
 	github.com/hashicorp/golang-lru v0.5.3 // indirect
 	github.com/spf13/cobra v1.2.1
+	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1
 )
