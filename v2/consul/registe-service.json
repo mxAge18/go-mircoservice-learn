@@ -1,0 +1,17 @@
+{
+  "ID": "user-service",
+  "Name": "user-service",
+  "Tags": ["primary", "v1"],
+  "Address": "192.165.7.133",
+  "Port": 5050,
+  "EnableTagOverride": false,
+  "Check": {
+    "HTTP": "http://192.165.7.133:5050/health",
+    "Interval": "10s",
+    "Timeout": "5s"
+  },
+  "Weights": {
+    "Passing": 10,
+    "Warning": 1
+  }
+}
