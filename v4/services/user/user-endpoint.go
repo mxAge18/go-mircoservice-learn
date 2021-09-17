@@ -1,4 +1,4 @@
-package service
+package user
 
 import (
 	"context"
@@ -16,12 +16,12 @@ type UserResponse struct {
 	Result string `json:"result"`
 }
 
-type UserEndPointer interface {
+type EndPointer interface {
 	GenUserEndpoint()
 	GetUserEndpoint() endpoint.Endpoint
 }
 
-func NewUserEndPointer(service IUserServicer) UserEndPointer {
+func NewEndPointer(service IUserServicer) EndPointer {
 	u := userEndPointer{}
 	u.service = service
 	u.GenUserEndpoint()

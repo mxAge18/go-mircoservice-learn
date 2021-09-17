@@ -1,4 +1,4 @@
-package service
+package user
 
 // IUserServicer 定义微服务
 type IUserServicer interface {
