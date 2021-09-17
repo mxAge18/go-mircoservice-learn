@@ -1,12 +1,12 @@
-package services
+package user
 
 // UserRequest 定义请求的struct
-type UserRequest struct {
+type Request struct {
 	UserId int `json:"userId"`
 	Method string
 }
 
 // UserResponse 定义响应的struct
-type UserResponse struct {
+type Response struct {
 	Result string `json:"result"`
 }

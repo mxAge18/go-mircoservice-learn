@@ -44,8 +44,8 @@ func gracefulStartService(port int, serviceName string) {
 	userService := user.NewUserService(serviceId, serviceName, port)
 	userEndpoint := user.NewEndPointer(userService)
 	userTransport := user.NewUserTransporter()
-
-	serverHandler := httpTransport.NewServer(userEndpoint.GetUserEndpoint(), userTransport.DecodeRequest, userTransport.EncodeResponse)
+	endPoint := userEndpoint.RateLimiter()(userEndpoint.LogMiddleware()(userEndpoint.GetUserEndpoint()))
+	serverHandler := httpTransport.NewServer(endPoint, userTransport.DecodeRequest, userTransport.EncodeResponse, userTransport.GetOptions()...)
 	router := routerMux.NewRouter()
 	{
 		userServicePath := `/user/{userId:\d+}`
