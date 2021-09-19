@@ -1,0 +1,27 @@
+syntax = "proto3";
+package product;
+option go_package = "../services/product/;product";
+
+import "google/api/annotations.proto";
+// https://www.cnblogs.com/yisany/p/14875488.html 遇到了点问题
+
+message Request {
+  int32 productId = 1;
+}
+
+message Response {
+  int32 productId = 1;
+  string productName = 2;
+  int32 stock = 3;
+}
+
+//定义RPC服务
+service ProductService {
+//  rpc GetStock (Request)returns (Response);
+  rpc GetStock (Request)returns (Response) {
+    option (google.api.http) = {
+      get: "/v1/stock/{productId}"
+    };
+  }
+
+}

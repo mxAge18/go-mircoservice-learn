@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductServiceClient interface {
+	//  rpc GetStock (Request)returns (Response);
 	GetStock(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 }
 
@@ -42,6 +43,7 @@ func (c *productServiceClient) GetStock(ctx context.Context, in *Request, opts .
 // All implementations must embed UnimplementedProductServiceServer
 // for forward compatibility
 type ProductServiceServer interface {
+	//  rpc GetStock (Request)returns (Response);
 	GetStock(context.Context, *Request) (*Response, error)
 	mustEmbedUnimplementedProductServiceServer()
 }
