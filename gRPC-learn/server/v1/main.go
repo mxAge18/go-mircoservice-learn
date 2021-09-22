@@ -1,10 +1,9 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"go-mircoservice-learn/gRPC-learn/server/v1/helper"
-	"go-mircoservice-learn/gRPC-learn/server/v1/services/product"
+	"github.com/mxAge18/gRPC-learn/server/v1/helper"
+	"github.com/mxAge18/gRPC-learn/server/v1/services/product"
 	"google.golang.org/grpc"
 	"log"
 	"net/http"
@@ -14,20 +13,13 @@ var (
 	port = ":50501"
 )
 
-type prodService struct {
-	product.UnimplementedProductServiceServer
-}
-
-func (s *prodService) GetStock(context.Context, *product.Request) (*product.Response, error) {
-	return &product.Response{ProductId: 100, ProductName: "name", Stock: 1000}, nil
-}
-
 func main() {
 
 	credsPtr := helper.GetServerCredentials("certs/server.pem", "certs/server.key", "certs/ca.pem")
 
 	grpcServer := grpc.NewServer(grpc.Creds(*credsPtr))
-	product.RegisterProductServiceServer(grpcServer, &prodService{})
+	productService := product.NewProductServiceServer()
+	product.RegisterProductServiceServer(grpcServer, productService)
 
 	fmt.Println("start listen the tcp conn from client")
 	//lis, err := net.Listen("tcp", port)

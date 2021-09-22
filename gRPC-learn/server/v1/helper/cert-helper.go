@@ -8,6 +8,7 @@ import (
 	"log"
 )
 
+// GetServerCredentials 根据证书分拣生成服务端credentials
 func GetServerCredentials(certFile string, keyFile string, caFile string) *credentials.TransportCredentials {
 	cert, err := tls.LoadX509KeyPair(certFile, keyFile)
 	if err != nil {
@@ -29,6 +30,8 @@ func GetServerCredentials(certFile string, keyFile string, caFile string) *crede
 	})
 	return &creds
 }
+
+// GetClientCredential 根据证书分拣生成客户端credentials
 func GetClientCredential(certFile string, keyFile string, caFile string) *credentials.TransportCredentials {
 	cert, err := tls.LoadX509KeyPair(certFile, keyFile)
 	// https://blog.csdn.net/ma_jiang/article/details/111992609

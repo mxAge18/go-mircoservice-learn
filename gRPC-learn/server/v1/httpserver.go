@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"go-mircoservice-learn/gRPC-learn/server/v1/helper"
-	"go-mircoservice-learn/gRPC-learn/server/v1/services/product"
+	"github.com/mxAge18/gRPC-learn/server/v1/helper"
+	"github.com/mxAge18/gRPC-learn/server/v1/services/product"
 	"google.golang.org/grpc"
 	"net/http"
 )
@@ -18,6 +18,7 @@ var (
 	grpcServerEndpoint = flag.String("grpc-server-endpoint", "localhost:50501", "gRPC server endpoint")
 )
 
+// run 运行http服务
 func run() error {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)

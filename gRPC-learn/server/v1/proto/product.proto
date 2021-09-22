@@ -15,6 +15,14 @@ message Response {
   int32 stock = 3;
 }
 
+message QuerySize {
+  int32 size = 1;
+}
+
+message ProductResponseList {
+  repeated Response prodRes = 1;
+}
+
 //定义RPC服务
 service ProductService {
 //  rpc GetStock (Request)returns (Response);
@@ -23,5 +31,9 @@ service ProductService {
       get: "/v1/stock/{productId}"
     };
   }
-
+  rpc GetProductList (QuerySize) returns (ProductResponseList) {
+    option (google.api.http) = {
+      get: "/v1/products/{size}"
+    };
+  }
 }
